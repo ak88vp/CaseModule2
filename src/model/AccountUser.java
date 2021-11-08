@@ -42,6 +42,6 @@ public class AccountUser {
 
     @Override
     public String toString() {
-        return String.format(ANSI_CYAN+"%-8s %-8s %-8s",userName,password,dateTime);
+        return String.format(ANSI_CYAN+"%-22s %-22s %-20s",userName,password,dateTime);
 }
 }

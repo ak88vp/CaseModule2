@@ -1,10 +1,10 @@
 package model.sirvice;
 
 import model.Character;
+import model.sirvice.interfaced.CharacterManager;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 public class ManagerCharacter implements CharacterManager<Character> {
     ArrayList<Character> listCharacter;

@@ -14,9 +14,8 @@ public class MenuAdmin {
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static void main() {
-        ManagerAccountUser managerAccountUser = new ManagerAccountUser();
+
         ManagerCharacter managerCharacter = new ManagerCharacter();
-        AccountAdmin admin = new AccountAdmin();
         Scanner scanner = new Scanner(System.in);
         int choice = 88;
         while (choice != 0) {
@@ -27,8 +26,10 @@ public class MenuAdmin {
                 System.out.println(" 3 : Đổi mật khẩu");
                 System.out.println(" 4 : Đọc file danh sách nhân vật");
                 System.out.println(" 5 : Đọc file danh sách tài khoản người dùng");
+                System.out.println(" 6 : Hiển thị tài khoản");
                 System.out.println(" 0 : Đăng xuất"+ANSI_RESET);
                 choice = scanner.nextInt();
+
                 switch (choice) {
                     case 1:
                         int choice1 = 88;
@@ -116,6 +117,8 @@ public class MenuAdmin {
                                                 System.out.println("....................");
                                                 break;
                                         }
+                                        if (choice2 < 0 || choice2 > 4) {
+                                            System.out.println("Chưa phát triển chức năng này");}
                                     }
                                 case 8:
                                     System.err.println("Nhập đường dẫn ");
@@ -140,6 +143,8 @@ public class MenuAdmin {
                                     System.out.println("....................");
                                     break;
                             }
+                            if (choice1 < 0 || choice1 > 9) {
+                                System.out.println("Chưa phát triển chức năng này");}
                         }
                         break;
                     case 2:
@@ -159,31 +164,31 @@ public class MenuAdmin {
                                 case 1:
                                     System.out.printf(ANSI_YELLOW+"%-22s %-22s %-20s ","Tên tài khoản","Mật khẩu","Ngày đăng kí");
                                     System.out.println("");
-                                    managerAccountUser.print();
+                                    ManagerAccountUser.getManagerAcc().print();
                                     break;
                                 case 2:
-                                    MenuLogin.createNewAccount(managerAccountUser, scanner);
+                                    MenuLogin.createNewAccount(ManagerAccountUser.getManagerAcc(), scanner);
 
                                     break;
                                 case 3:
                                     System.err.println("Nhập tên tài khoản muốn xóa");
                                     scanner.nextLine();
                                     String deleteName = scanner.nextLine();
-                                    managerAccountUser.delete(deleteName);
+                                    ManagerAccountUser.getManagerAcc().delete(deleteName);
                                     break;
                                 case 4:
-                                    editAccount(managerAccountUser, scanner);
+                                    editAccount(ManagerAccountUser.getManagerAcc(), scanner);
                                     break;
                                 case 5:
                                     System.out.printf(ANSI_YELLOW+"%-22s %-22s %-20s ","Tên tài khoản","Mật khẩu","Ngày đăng kí");
                                     System.out.println("");
-                                    managerAccountUser.sortDate();
+                                    ManagerAccountUser.getManagerAcc().sortDate();
                                     break;
                                 case 6:
                                     System.err.println("Nhập tên tài khoản muốn tìm");
                                     scanner.nextLine();
                                     String findName = scanner.nextLine();
-                                    managerAccountUser.findByName(findName);
+                                    ManagerAccountUser.getManagerAcc().findByName(findName);
                                     break;
                                 case 7:
                                     System.err.println("Nhập đường dẫn ");
@@ -192,10 +197,10 @@ public class MenuAdmin {
                                     try (FileWriter fileWriter = new FileWriter(link)) {
                                         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                                         String str = "Tên tài khoản, Mật khẩu,Ngày đăng kí";
-                                        for (int i = 0; i < managerAccountUser.getListUserAccount().size(); i++) {
-                                            str += "\n" + managerAccountUser.getListUserAccount().get(i).getUserName() + ","
-                                                    + managerAccountUser.getListUserAccount().get(i).getPassword() + "," +
-                                                    managerAccountUser.getListUserAccount().get(i).getDateTime()
+                                        for (int i = 0; i < ManagerAccountUser.getManagerAcc().getListUserAccount().size(); i++) {
+                                            str += "\n" + ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getUserName() + ","
+                                                    + ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getPassword() + "," +
+                                                    ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getDateTime()
                                             ;
                                         }
                                         bufferedWriter.write(str);
@@ -207,20 +212,22 @@ public class MenuAdmin {
                                     System.out.println(".....................");
                                     break;
                             }
+                            if (choice3 < 0 || choice3 > 7) {
+                                System.out.println("Chưa phát triển chức năng này");}
                         }
                         break;
                     case 3:
                         System.err.println("Nhập lại mật khẩu :");
                         scanner.nextLine();
                         String pass = scanner.nextLine();
-                        if (admin.getPassword().equals(pass)) {
+                        if (AccountAdmin.getInstance().getPassword().equals(pass)) {
                             System.err.println("Nhập mật khẩu mới");
                             String newPass = scanner.nextLine();
                             System.err.println("Nhập lại mật khẩu ");
                             String newPass1 = scanner.nextLine();
                             if (MenuLogin.validate(newPass)) {
                                 if (newPass.equals(newPass1)) {
-                                    admin.setPassword(newPass);
+                                    AccountAdmin.getInstance().setPassword(newPass);
                                     System.err.println("Đã đổi mật khẩu thành công");
                                     break;
                                 } else System.err.println("Mật khẩu không trùng khớp");
@@ -267,6 +274,11 @@ public class MenuAdmin {
                             System.out.println("");
                         }
                         break;
+                    case 6:
+                        System.out.printf(ANSI_YELLOW+"%-22s%-22s","Tên tài khoản","Mật khẩu");
+                        System.out.println("");
+                        System.out.println(AccountAdmin.getInstance().toString());
+                        break;
                     case 0:
                         System.err.println("Cám ơn bạn đã sử chương trình \nChúc bạn có một ngày tốt đẹp ");
                         break;
@@ -275,6 +287,8 @@ public class MenuAdmin {
                 scanner.nextLine();
                 System.err.println("Xin mời nhập lựa chọn tương ứng ");
             }
+            if (choice < 0 || choice > 6) {
+                System.out.println("Chưa phát triển chức năng này");}
         }
     }
 
@@ -282,7 +296,7 @@ public class MenuAdmin {
         System.err.println("Nhập tên tài khoản muốn sửa");
         scanner.nextLine();
         String editName = scanner.nextLine();
-        if (managerAccountUser.find(editName) != -1) {
+        if (ManagerAccountUser.getManagerAcc().find(editName) != -1) {
             System.err.println("Đổi tên tài khoản ");
             String newName = scanner.nextLine();
             System.err.println("Đổi mật khẩu ");
@@ -291,7 +305,7 @@ public class MenuAdmin {
             String newPass2 = scanner.nextLine();
             if (MenuLogin.validate(newName) && MenuLogin.validate(newPass2)) {
                 if (newPass.equals(newPass2)) {
-                    managerAccountUser.edit(editName, new AccountUser(newName, newPass));
+                    ManagerAccountUser.getManagerAcc().edit(editName, new AccountUser(newName, newPass));
                     System.err.println("Sửa thành công");
                     return;
                 } else System.err.println("Mật khẩu không trùng khớp");

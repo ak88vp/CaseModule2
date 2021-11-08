@@ -17,8 +17,7 @@ public class MenuLogin {
     }
 
     public static void main(String[] args) {
-        ManagerAccountUser managerAccountUser=new ManagerAccountUser();
-        AccountAdmin admin= new AccountAdmin();
+
         Scanner scanner=new Scanner(System.in);
         int choice=88;
         while (choice!=0){
@@ -30,10 +29,10 @@ public class MenuLogin {
                 choice=scanner.nextInt();
                 switch (choice){
                     case 1:
-                        createNewAccount(managerAccountUser, scanner);
+                        createNewAccount(ManagerAccountUser.getManagerAcc(), scanner);
                         break;
                     case 2:
-                        logIn(managerAccountUser, admin, scanner);
+                        logIn(ManagerAccountUser.getManagerAcc(),AccountAdmin.getInstance(), scanner);
                         break;
                     case 0:
                         System.err.println("Cám ơn bạn đã sử chương trình \nChúc bạn có một ngày tốt đẹp ");
@@ -44,27 +43,28 @@ public class MenuLogin {
                 scanner.nextLine();
                 System.err.println("Xin mời nhập lựa chọn tương ứng ");
             }
-
+            if (choice < 0 || choice > 2) {
+                System.out.println("Chưa phát triển chức năng này");}
         }
     }
-    public static String index;
+    public static String newName;
     public static void logIn(ManagerAccountUser managerAccountUser, AccountAdmin admin, Scanner scanner) {
         System.err.println("Nhập tên tài khoản ");
         scanner.nextLine();
         String name= scanner.nextLine();
         System.err.println("Nhập mật khẩu tài khoản ");
         String pass= scanner.nextLine();
-         index=name;
         int check=-1;
-        if(admin.getAdminName().equals(name)&& admin.getPassword().equals(pass)){
+        if(AccountAdmin.getInstance().getAdminName().equals(name)&& AccountAdmin.getInstance().getPassword().equals(pass)){
             System.err.println("Đã đăng nhập thành công tài khoản Admin");
             MenuAdmin.main();
         }else {
-        for (int i = 0; i < managerAccountUser.getListUserAccount().size(); i++) {
-            boolean isName = managerAccountUser.getListUserAccount().get(i).getUserName().equals(name);
-            boolean isPass = managerAccountUser.getListUserAccount().get(i).getPassword().equals(pass);
+        for (int i = 0; i < ManagerAccountUser.getManagerAcc().getListUserAccount().size(); i++) {
+            boolean isName = ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getUserName().equals(name);
+            boolean isPass = ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getPassword().equals(pass);
             if(isName && isPass){
                 System.err.println("Đăng nhập thành công");
+                newName=name;
                 MenuUser.main();
                 check=2;
                 break;
@@ -87,11 +87,10 @@ public class MenuLogin {
         if(validate(newName)&&validate(newPassword)){
         if(newPassword.equals(newPassword2)){
             int check=-1;
-            for (int i = 0; i < managerAccountUser.getListUserAccount().size(); i++) {
-                if(!managerAccountUser.getListUserAccount().get(i).getUserName().equals(newName)){
-                    managerAccountUser.add(new AccountUser(newName,newPassword));
+            for (int i = 0; i < ManagerAccountUser.getManagerAcc().getListUserAccount().size(); i++) {
+                if(!ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getUserName().equals(newName)){
+                    ManagerAccountUser.getManagerAcc().add(new AccountUser(newName,newPassword));
                     System.err.println("Đăng kí thành công");
-
                     check=i;
                     break;
                 }

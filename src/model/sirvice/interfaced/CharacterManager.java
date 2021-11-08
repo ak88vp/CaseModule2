@@ -1,4 +1,4 @@
-package model.sirvice;
+package model.sirvice.interfaced;
 import model.Character;
 public interface CharacterManager<T> extends Manager < Character>{
     void sortByMoney();

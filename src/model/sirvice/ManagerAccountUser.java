@@ -1,16 +1,24 @@
 package model.sirvice;
 import model.AccountUser;
+import model.sirvice.interfaced.UserAccountManager;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class ManagerAccountUser implements UserAccountManager<AccountUser> {
-    ArrayList<AccountUser> listUserAccount;
+    private static final ManagerAccountUser instance = new ManagerAccountUser();//Singleton
+    public static ManagerAccountUser getManagerAcc(){      // Dùng khi mà muốn cái class của mk tạo ra 1 thằng duy nhất thôi
+        return instance;
+    }
+    private ArrayList<AccountUser> listUserAccount;
+
 
     public ManagerAccountUser() {
         listUserAccount = new ArrayList<>();
         listUserAccount.add(new AccountUser("dung24","123123"));
         listUserAccount.add(new AccountUser("ak6688","123123"));
         listUserAccount.add(new AccountUser("c0821i1","123123"));
+
     }
 
     public ManagerAccountUser(ArrayList<AccountUser> listUserAccount) {
@@ -28,6 +36,7 @@ public class ManagerAccountUser implements UserAccountManager<AccountUser> {
     @Override
     public void add(AccountUser accountUser) {
         listUserAccount.add(accountUser);
+
     }
 
     @Override
