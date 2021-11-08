@@ -13,6 +13,7 @@ public class MenuAdmin {
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_PURPLE = "\u001B[35m";
+
     public static void main() {
 
         ManagerCharacter managerCharacter = new ManagerCharacter();
@@ -20,22 +21,22 @@ public class MenuAdmin {
         int choice = 88;
         while (choice != 0) {
             try {
-                System.out.println(ANSI_BLUE+"----------------------Menu----------------------"+ANSI_RESET);
-                System.out.println(ANSI_PURPLE+" 1 : Quản lý nhân vật");
+                System.out.println(ANSI_BLUE + "----------------------Menu----------------------" + ANSI_RESET);
+                System.out.println(ANSI_PURPLE + " 1 : Quản lý nhân vật");
                 System.out.println(" 2 : Quản lý tài khoản người dùng");
                 System.out.println(" 3 : Đổi mật khẩu");
                 System.out.println(" 4 : Đọc file danh sách nhân vật");
                 System.out.println(" 5 : Đọc file danh sách tài khoản người dùng");
                 System.out.println(" 6 : Hiển thị tài khoản");
-                System.out.println(" 0 : Đăng xuất"+ANSI_RESET);
+                System.out.println(" 0 : Đăng xuất" + ANSI_RESET);
                 choice = scanner.nextInt();
 
                 switch (choice) {
                     case 1:
                         int choice1 = 88;
                         while (choice1 != 0) {
-                            System.out.println(ANSI_BLUE+"------------------Menu--------------------"+ANSI_RESET);
-                            System.out.println(ANSI_PURPLE+" 1 :Hiển thị danh sách nhân vật ");
+                            System.out.println(ANSI_BLUE + "------------------Menu--------------------" + ANSI_RESET);
+                            System.out.println(ANSI_PURPLE + " 1 :Hiển thị danh sách nhân vật ");
                             System.out.println(" 2 :Thêm  nhân vật  ");
                             System.out.println(" 3 :Xóa nhân vật ");
                             System.out.println(" 4 :Sửa sửa nhân vật ");
@@ -43,11 +44,11 @@ public class MenuAdmin {
                             System.out.println(" 6 :Sắp xếp nhân vật theo tuổi");
                             System.out.println(" 7 :Tìm kiếm ");
                             System.out.println(" 8 :Lưu vào file ");
-                            System.out.println(" 0 : Trở về "+ANSI_RESET);
+                            System.out.println(" 0 : Trở về " + ANSI_RESET);
                             choice1 = scanner.nextInt();
                             switch (choice1) {
                                 case 1:
-                                    System.out.printf(ANSI_YELLOW+"%-22s %-8s %-20s %-20s %-20s","Tên","Tuổi","Trái ác quỷ","Băng nhóm","Tiền truy nã ");
+                                    System.out.printf(ANSI_YELLOW + "%-22s %-8s %-20s %-20s %-20s", "Tên", "Tuổi", "Trái ác quỷ", "Băng nhóm", "Tiền truy nã ");
                                     System.out.println("");
                                     managerCharacter.print();
                                     break;
@@ -85,23 +86,23 @@ public class MenuAdmin {
                                     System.err.println("Ko tìm thấy nhân vật bạn muốn sửa");
                                     break;
                                 case 5:
-                                    System.out.printf(ANSI_YELLOW+"%-22s %-8s %-20s %-20s %-20s","Tên","Tuổi","Trái ác quỷ","Băng nhóm","Tiền truy nã ");
+                                    System.out.printf(ANSI_YELLOW + "%-22s %-8s %-20s %-20s %-20s", "Tên", "Tuổi", "Trái ác quỷ", "Băng nhóm", "Tiền truy nã ");
                                     System.out.println("");
                                     managerCharacter.sortByMoney();
                                     break;
                                 case 6:
-                                    System.out.printf(ANSI_YELLOW+"%-22s %-8s %-20s %-20s %-20s","Tên","Tuổi","Trái ác quỷ","Băng nhóm","Tiền truy nã ");
+                                    System.out.printf(ANSI_YELLOW + "%-22s %-8s %-20s %-20s %-20s", "Tên", "Tuổi", "Trái ác quỷ", "Băng nhóm", "Tiền truy nã ");
                                     System.out.println("");
                                     managerCharacter.sortByAge();
                                     break;
                                 case 7:
                                     int choice2 = 88;
                                     while (choice2 != 0) {
-                                        System.out.println(ANSI_BLUE+"------------------Menu-------------------"+ANSI_RESET);
-                                        System.out.println(ANSI_PURPLE+" 1 :Tìm kiếm theo tên nhân vật ");
+                                        System.out.println(ANSI_BLUE + "------------------Menu-------------------" + ANSI_RESET);
+                                        System.out.println(ANSI_PURPLE + " 1 :Tìm kiếm theo tên nhân vật ");
                                         System.out.println(" 2 :Tìm kiếm theo tên băng nhóm ");
                                         System.out.println(" 3 :Tìm kiếm theo tên số tiền truy nã ");
-                                        System.out.println(" 0 : trở về "+ANSI_RESET);
+                                        System.out.println(" 0 : trở về " + ANSI_RESET);
                                         choice2 = scanner.nextInt();
                                         switch (choice2) {
                                             case 1:
@@ -118,7 +119,8 @@ public class MenuAdmin {
                                                 break;
                                         }
                                         if (choice2 < 0 || choice2 > 4) {
-                                            System.out.println("Chưa phát triển chức năng này");}
+                                            System.out.println("Chưa phát triển chức năng này");
+                                        }
                                     }
                                 case 8:
                                     System.err.println("Nhập đường dẫn ");
@@ -144,25 +146,26 @@ public class MenuAdmin {
                                     break;
                             }
                             if (choice1 < 0 || choice1 > 9) {
-                                System.out.println("Chưa phát triển chức năng này");}
+                                System.out.println("Chưa phát triển chức năng này");
+                            }
                         }
                         break;
                     case 2:
                         int choice3 = 88;
                         while (choice3 != 0) {
-                            System.out.println(ANSI_BLUE+"---------------------Menu----------------------"+ANSI_RESET);
-                            System.out.println(ANSI_PURPLE+" 1 :Hiển thị danh sách tài khoản ");
+                            System.out.println(ANSI_BLUE + "---------------------Menu----------------------" + ANSI_RESET);
+                            System.out.println(ANSI_PURPLE + " 1 :Hiển thị danh sách tài khoản ");
                             System.out.println(" 2 :Thêm tài khoản  ");
                             System.out.println(" 3 :Xóa tài khoản ");
                             System.out.println(" 4 :Sửa tài khoản ");
                             System.out.println(" 5 :Sắp xếp tài khoản theo ngày đăng kí ");
                             System.out.println(" 6 :Tìm kiếm tài khoản ");
                             System.out.println(" 7 :Lưu danh sách tài khoản vào file ");
-                            System.out.println(" 0 : Trở về "+ANSI_RESET);
+                            System.out.println(" 0 : Trở về " + ANSI_RESET);
                             choice3 = scanner.nextInt();
                             switch (choice3) {
                                 case 1:
-                                    System.out.printf(ANSI_YELLOW+"%-22s %-22s %-20s ","Tên tài khoản","Mật khẩu","Ngày đăng kí");
+                                    System.out.printf(ANSI_YELLOW + "%-22s %-22s %-20s ", "Tên tài khoản", "Mật khẩu", "Ngày đăng kí");
                                     System.out.println("");
                                     ManagerAccountUser.getManagerAcc().print();
                                     break;
@@ -180,7 +183,7 @@ public class MenuAdmin {
                                     editAccount(ManagerAccountUser.getManagerAcc(), scanner);
                                     break;
                                 case 5:
-                                    System.out.printf(ANSI_YELLOW+"%-22s %-22s %-20s ","Tên tài khoản","Mật khẩu","Ngày đăng kí");
+                                    System.out.printf(ANSI_YELLOW + "%-22s %-22s %-20s ", "Tên tài khoản", "Mật khẩu", "Ngày đăng kí");
                                     System.out.println("");
                                     ManagerAccountUser.getManagerAcc().sortDate();
                                     break;
@@ -213,7 +216,8 @@ public class MenuAdmin {
                                     break;
                             }
                             if (choice3 < 0 || choice3 > 7) {
-                                System.out.println("Chưa phát triển chức năng này");}
+                                System.out.println("Chưa phát triển chức năng này");
+                            }
                         }
                         break;
                     case 3:
@@ -248,7 +252,7 @@ public class MenuAdmin {
                         while ((str1 = bufferedReader.readLine()) != null) {
                             String[] str2 = str1.split(",");
                             for (int i = 0; i < str2.length; i++) {
-                                System.out.printf(ANSI_YELLOW+"  %-25s|", str2[i]+ANSI_RESET);
+                                System.out.printf(ANSI_YELLOW + "  %-25s|", str2[i] + ANSI_RESET);
                             }
                             System.out.println("\n------------------------------------------------------------------------------------------------------------------------");
                         }
@@ -265,7 +269,7 @@ public class MenuAdmin {
                             while ((str3 = bufferedReader2.readLine()) != null) {
                                 String[] str2 = str3.split(",");
                                 for (int i = 0; i < str2.length; i++) {
-                                    System.out.printf(ANSI_YELLOW+"  %-27s|", str2[i]+ANSI_RESET);
+                                    System.out.printf(ANSI_YELLOW + "  %-27s|", str2[i] + ANSI_RESET);
                                 }
                                 System.out.println("\n------------------------------------------------------------------------------");
                             }
@@ -275,7 +279,7 @@ public class MenuAdmin {
                         }
                         break;
                     case 6:
-                        System.out.printf(ANSI_YELLOW+"%-22s%-22s","Tên tài khoản","Mật khẩu");
+                        System.out.printf(ANSI_YELLOW + "%-22s%-22s", "Tên tài khoản", "Mật khẩu");
                         System.out.println("");
                         System.out.println(AccountAdmin.getInstance().toString());
                         break;
@@ -288,7 +292,8 @@ public class MenuAdmin {
                 System.err.println("Xin mời nhập lựa chọn tương ứng ");
             }
             if (choice < 0 || choice > 6) {
-                System.out.println("Chưa phát triển chức năng này");}
+                System.out.println("Chưa phát triển chức năng này");
+            }
         }
     }
 

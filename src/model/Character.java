@@ -58,8 +58,9 @@ public class Character {
     public void setMoneyRetrieval(int moneyRetrieval) {
         this.moneyRetrieval = moneyRetrieval;
     }
+
     @Override
     public String toString() {
-        return String.format(ANSI_CYAN+"%-22s %-8d %-20s %-20s %-20d",name,age,devilFruit,gangs,moneyRetrieval);
+        return String.format(ANSI_CYAN + "%-22s %-8d %-20s %-20s %-20d", name, age, devilFruit, gangs, moneyRetrieval);
     }
 }

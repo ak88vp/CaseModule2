@@ -64,7 +64,8 @@ public class MenuUser {
                                     break;
                             }
                             if (choice2 < 0 || choice2 > 3) {
-                                System.out.println("Chưa phát triển chức năng này");}
+                                System.out.println("Chưa phát triển chức năng này");
+                            }
                         }
                         break;
                     case 3:
@@ -90,7 +91,7 @@ public class MenuUser {
                             String pass2 = scanner.nextLine();
                             if (MenuLogin.validate(pass1)) {
                                 if (pass1.equals(pass2)) {
-                                    ManagerAccountUser.getManagerAcc().editPassWord(MenuLogin.newName,pass1);
+                                    ManagerAccountUser.getManagerAcc().editPassWord(MenuLogin.newName, pass1);
                                     System.err.println("Thay đổi mật khẩu thành công");
                                     break;
                                 }
@@ -100,7 +101,7 @@ public class MenuUser {
                         } else System.err.println("Mật khẩu không đúng");
                         break;
                     case 6:
-                        System.out.printf(ANSI_YELLOW+"%-22s %-22s %-20s ","Tên tài khoản","Mật khẩu","Ngày đăng kí");
+                        System.out.printf(ANSI_YELLOW + "%-22s %-22s %-20s ", "Tên tài khoản", "Mật khẩu", "Ngày đăng kí");
                         System.out.println("");
                         System.out.println(ManagerAccountUser.getManagerAcc().getListUserAccount().get(ManagerAccountUser.getManagerAcc().find(MenuLogin.newName)).toString());
                         break;
@@ -111,7 +112,8 @@ public class MenuUser {
                 System.err.println("Xin mời nhập lựa chọn tương ứng ");
             }
             if (choice < 0 || choice > 6) {
-                System.out.println("Chưa phát triển chức năng này");}
+                System.out.println("Chưa phát triển chức năng này");
+            }
         }
     }
 

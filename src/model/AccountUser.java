@@ -7,13 +7,14 @@ public class AccountUser {
     private String userName;
     private String password;
     private LocalDateTime dateTime;
+
     public AccountUser() {
     }
 
     public AccountUser(String userName, String password) {
         this.userName = userName;
         this.password = password;
-        dateTime=LocalDateTime.now();
+        dateTime = LocalDateTime.now();
     }
 
     public String getUserName() {
@@ -35,6 +36,7 @@ public class AccountUser {
     public LocalDateTime getDateTime() {
         return dateTime;
     }
+
     public int getDateTime2() {
         return dateTime.getMinute();
     }
@@ -42,6 +44,6 @@ public class AccountUser {
 
     @Override
     public String toString() {
-        return String.format(ANSI_CYAN+"%-22s %-22s %-20s",userName,password,dateTime);
-}
+        return String.format(ANSI_CYAN + "%-22s %-22s %-20s", userName, password, dateTime);
+    }
 }
