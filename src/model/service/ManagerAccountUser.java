@@ -70,7 +70,8 @@ public class ManagerAccountUser implements UserAccountManager<AccountUser> {
 
     public void findByName(String userName) {
         for (AccountUser accountUser : listUserAccount) {
-            if (accountUser.getUserName().trim().toLowerCase(Locale.ROOT).contains(userName.toLowerCase(Locale.ROOT).trim())) {
+            boolean isName = accountUser.getUserName().trim().toLowerCase(Locale.ROOT).contains(userName.toLowerCase(Locale.ROOT).trim());
+            if (isName) {
                 System.out.println(accountUser);
             }
         }

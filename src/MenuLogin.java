@@ -114,7 +114,7 @@ public class MenuLogin {
     }
 
     public static void savaToFile() {
-        try  {
+        try {
             FileWriter fileWriter = new FileWriter("accountuser.csv");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             String str = "Tên tài khoản, Mật khẩu,Ngày đăng kí";

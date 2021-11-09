@@ -33,238 +33,19 @@ public class MenuAdmin {
 
                 switch (choice) {
                     case 1:
-                        int choice1 = 88;
-                        while (choice1 != 0) {
-                            System.out.println(ANSI_BLUE + "------------------Menu--------------------" + ANSI_RESET);
-                            System.out.println(ANSI_PURPLE + " 1 :Hiển thị danh sách nhân vật ");
-                            System.out.println(" 2 :Thêm  nhân vật  ");
-                            System.out.println(" 3 :Xóa nhân vật ");
-                            System.out.println(" 4 :Sửa sửa nhân vật ");
-                            System.out.println(" 5 :Sắp xếp nhân vật theo tiền truy nã");
-                            System.out.println(" 6 :Sắp xếp nhân vật theo tuổi");
-                            System.out.println(" 7 :Tìm kiếm ");
-                            System.out.println(" 8 :Lưu vào file ");
-                            System.out.println(" 0 : Trở về " + ANSI_RESET);
-                            choice1 = scanner.nextInt();
-                            switch (choice1) {
-                                case 1:
-                                    System.out.printf(ANSI_YELLOW + "%-22s %-8s %-20s %-20s %-20s", "Tên", "Tuổi", "Trái ác quỷ", "Băng nhóm", "Tiền truy nã ");
-                                    System.out.println("");
-                                    managerCharacter.print();
-                                    break;
-                                case 2:
-                                    createNewCharacter(managerCharacter, scanner);
-                                    break;
-                                case 3:
-                                    System.err.println("Nhập tên nhân vật muốn xóa");
-                                    scanner.nextLine();
-                                    String deleteName = scanner.nextLine();
-                                    if (managerCharacter.find(deleteName) != -1) {
-                                        managerCharacter.delete(deleteName);
-                                        System.err.println("Xóa thành công");
-                                    } else System.err.println("Không tìm thấy nhân vật bạn muốn xóa");
-                                    break;
-                                case 4:
-                                    System.err.println("Nhập tên nhân vật bạn muốn sửa ");
-                                    scanner.nextLine();
-                                    String editName = scanner.nextLine();
-                                    if (managerCharacter.find(editName) != -1) {
-                                        System.err.println("Tạo mới tên nhân vật");
-                                        String newName = scanner.nextLine();
-                                        System.err.println("Tạo mới tuổi nhân vật");
-                                        int newAge = scanner.nextInt();
-                                        System.err.println("Tạo mới trái ác quỷ nhân vật");
-                                        String newDevilFruit = scanner.nextLine();
-                                        System.err.println("Tạo mới băng nhóm  nhân vật");
-                                        String newGangs = scanner.nextLine();
-                                        System.err.println("Tạo mới số tiền truy nã nhân vật");
-                                        int newMoneyRetrieval = scanner.nextInt();
-                                        managerCharacter.edit(editName, new Character(newName, newAge, newDevilFruit, newGangs, newMoneyRetrieval));
-                                        System.err.println("Sửa đổi thành công");
-                                        break;
-                                    }
-                                    System.err.println("Ko tìm thấy nhân vật bạn muốn sửa");
-                                    break;
-                                case 5:
-                                    System.out.printf(ANSI_YELLOW + "%-22s %-8s %-20s %-20s %-20s", "Tên", "Tuổi", "Trái ác quỷ", "Băng nhóm", "Tiền truy nã ");
-                                    System.out.println("");
-                                    managerCharacter.sortByMoney();
-                                    break;
-                                case 6:
-                                    System.out.printf(ANSI_YELLOW + "%-22s %-8s %-20s %-20s %-20s", "Tên", "Tuổi", "Trái ác quỷ", "Băng nhóm", "Tiền truy nã ");
-                                    System.out.println("");
-                                    managerCharacter.sortByAge();
-                                    break;
-                                case 7:
-                                    int choice2 = 88;
-                                    while (choice2 != 0) {
-                                        System.out.println(ANSI_BLUE + "------------------Menu-------------------" + ANSI_RESET);
-                                        System.out.println(ANSI_PURPLE + " 1 :Tìm kiếm theo tên nhân vật ");
-                                        System.out.println(" 2 :Tìm kiếm theo tên băng nhóm ");
-                                        System.out.println(" 3 :Tìm kiếm theo tên số tiền truy nã ");
-                                        System.out.println(" 0 : trở về " + ANSI_RESET);
-                                        choice2 = scanner.nextInt();
-                                        switch (choice2) {
-                                            case 1:
-                                                findByName(managerCharacter, scanner);
-                                                break;
-                                            case 2:
-                                                findByGangs(managerCharacter, scanner);
-                                                break;
-                                            case 3:
-                                                findByMoney(managerCharacter, scanner);
-                                                break;
-                                            case 0:
-                                                System.out.println("....................");
-                                                break;
-                                        }
-                                        if (choice2 < 0 || choice2 > 4) {
-                                            System.out.println("Chưa phát triển chức năng này");
-                                        }
-                                    }
-                                case 8:
-//                                    System.err.println("Nhập đường dẫn ");
-//                                    scanner.nextLine();
-//                                    String link = scanner.nextLine();
-                                    try (FileWriter fileWriter = new FileWriter("onepiece.csv")) {
-                                        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                                        String str = "Tên,Tuổi,Trái ác quỷ,Băng nhóm,Tiền truy nã";
-                                        for (int i = 0; i < managerCharacter.getListCharacter().size(); i++) {
-                                            str += "\n" + managerCharacter.getListCharacter().get(i).getName()
-                                                    + "," + managerCharacter.getListCharacter().get(i).getAge() +
-                                                    "," + managerCharacter.getListCharacter().get(i).getDevilFruit() +
-                                                    "," + managerCharacter.getListCharacter().get(i).getGangs() +
-                                                    "," + managerCharacter.getListCharacter().get(i).getMoneyRetrieval();
-                                        }
-                                        bufferedWriter.write(str);
-                                        bufferedWriter.close();
-                                    } catch (IOException ignored) {
-                                    }
-                                    break;
-                                case 0:
-                                    System.out.println("....................");
-                                    break;
-                            }
-                            if (choice1 < 0 || choice1 > 9) {
-                                System.out.println("Chưa phát triển chức năng này");
-                            }
-                        }
+                        managerCharacter(managerCharacter, scanner);
                         break;
                     case 2:
-                        int choice3 = 88;
-                        while (choice3 != 0) {
-                            System.out.println(ANSI_BLUE + "---------------------Menu----------------------" + ANSI_RESET);
-                            System.out.println(ANSI_PURPLE + " 1 :Hiển thị danh sách tài khoản ");
-                            System.out.println(" 2 :Thêm tài khoản  ");
-                            System.out.println(" 3 :Xóa tài khoản ");
-                            System.out.println(" 4 :Sửa tài khoản ");
-                            System.out.println(" 5 :Sắp xếp tài khoản theo ngày đăng kí ");
-                            System.out.println(" 6 :Tìm kiếm tài khoản ");
-                            System.out.println(" 7 :Lưu danh sách tài khoản vào file ");
-                            System.out.println(" 0 : Trở về " + ANSI_RESET);
-                            choice3 = scanner.nextInt();
-                            switch (choice3) {
-                                case 1:
-                                    System.out.printf(ANSI_YELLOW + "%-22s %-22s %-20s ", "Tên tài khoản", "Mật khẩu", "Ngày đăng kí");
-                                    System.out.println("");
-                                    ManagerAccountUser.getManagerAcc().print();
-                                    break;
-                                case 2:
-                                    MenuLogin.createNewAccount(ManagerAccountUser.getManagerAcc(), scanner);
-
-                                    break;
-                                case 3:
-                                    System.err.println("Nhập tên tài khoản muốn xóa");
-                                    scanner.nextLine();
-                                    String deleteName = scanner.nextLine();
-                                    ManagerAccountUser.getManagerAcc().delete(deleteName);
-                                    break;
-                                case 4:
-                                    editAccount(ManagerAccountUser.getManagerAcc(), scanner);
-                                    break;
-                                case 5:
-                                    System.out.printf(ANSI_YELLOW + "%-22s %-22s %-20s ", "Tên tài khoản", "Mật khẩu", "Ngày đăng kí");
-                                    System.out.println("");
-                                    ManagerAccountUser.getManagerAcc().sortDate();
-                                    break;
-                                case 6:
-                                    System.err.println("Nhập tên tài khoản muốn tìm");
-                                    scanner.nextLine();
-                                    String findName = scanner.nextLine();
-                                    ManagerAccountUser.getManagerAcc().findByName(findName);
-                                    break;
-                                case 7:
-//                                    System.err.println("Nhập đường dẫn ");
-//                                    scanner.nextLine();
-//                                    String link = scanner.nextLine();
-                                   MenuLogin.savaToFile();
-                                    break;
-                                case 0:
-                                    System.out.println(".....................");
-                                    break;
-                            }
-                            if (choice3 < 0 || choice3 > 7) {
-                                System.out.println("Chưa phát triển chức năng này");
-                            }
-                        }
+                        mamagerAccount(scanner);
                         break;
                     case 3:
-                        System.err.println("Nhập lại mật khẩu :");
-                        scanner.nextLine();
-                        String pass = scanner.nextLine();
-                        if (AccountAdmin.getInstance().getPassword().equals(pass)) {
-                            System.err.println("Nhập mật khẩu mới");
-                            String newPass = scanner.nextLine();
-                            System.err.println("Nhập lại mật khẩu ");
-                            String newPass1 = scanner.nextLine();
-                            if (MenuLogin.validate(newPass)) {
-                                if (newPass.equals(newPass1)) {
-                                    AccountAdmin.getInstance().setPassword(newPass);
-                                    System.err.println("Đã đổi mật khẩu thành công");
-                                    break;
-                                } else System.err.println("Mật khẩu không trùng khớp");
-                                break;
-                            } else
-                                System.err.println("Mật khẩu không hợp lệ (Chứa ít nhất 6 kí tự và ko có kí tự đặc biệt )");
-                            break;
-                        } else System.err.println("Mật khẩu không chính xác ");
+                        changeThePassword(scanner);
                         break;
                     case 4:
-//                        System.err.println("Nhập đường dẫn mà bạn muốn đọc");
-//                        scanner.nextLine();
-//                        String link1 = scanner.nextLine();
-                        FileReader fileReader = new FileReader("onepiece.csv");
-                        BufferedReader bufferedReader = new BufferedReader(fileReader);
-                        String str1;
-                        System.out.println("\n------------------------------------------------------------------------------------------------------------------------");
-                        while ((str1 = bufferedReader.readLine()) != null) {
-                            String[] str2 = str1.split(",");
-                            for (int i = 0; i < str2.length; i++) {
-                                System.out.printf(ANSI_YELLOW + "  %-25s|", str2[i] + ANSI_RESET);
-                            }
-                            System.out.println("\n------------------------------------------------------------------------------------------------------------------------");
-                        }
-                        bufferedReader.close();
+                        readrCharacter();
                         break;
                     case 5:
-//                        System.err.println("Nhập đường dẫn mà bạn muốn đọc");
-//                        scanner.nextLine();
-//                        String link2 = scanner.nextLine();
-                        try (FileReader fileReader2 = new FileReader("accountuser.csv")) {
-                            BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
-                            String str3;
-                            System.out.println("\n------------------------------------------------------------------------------");
-                            while ((str3 = bufferedReader2.readLine()) != null) {
-                                String[] str2 = str3.split(",");
-                                for (int i = 0; i < str2.length; i++) {
-                                    System.out.printf(ANSI_YELLOW + "  %-27s|", str2[i] + ANSI_RESET);
-                                }
-                                System.out.println("\n------------------------------------------------------------------------------");
-                            }
-                            bufferedReader2.close();
-                        } catch (IOException i) {
-                            System.out.println("");
-                        }
+                        readerAccount();
                         break;
                     case 6:
                         System.out.printf(ANSI_YELLOW + "%-22s%-22s", "Tên tài khoản", "Mật khẩu");
@@ -282,6 +63,246 @@ public class MenuAdmin {
             if (choice < 0 || choice > 6) {
                 System.out.println("Chưa phát triển chức năng này");
             }
+        }
+    }
+
+    private static void managerCharacter(ManagerCharacter managerCharacter, Scanner scanner) {
+        int choice1 = 88;
+        while (choice1 != 0) {
+            System.out.println(ANSI_BLUE + "------------------Menu--------------------" + ANSI_RESET);
+            System.out.println(ANSI_PURPLE + " 1 :Hiển thị danh sách nhân vật ");
+            System.out.println(" 2 :Thêm  nhân vật  ");
+            System.out.println(" 3 :Xóa nhân vật ");
+            System.out.println(" 4 :Sửa sửa nhân vật ");
+            System.out.println(" 5 :Sắp xếp nhân vật theo tiền truy nã");
+            System.out.println(" 6 :Sắp xếp nhân vật theo tuổi");
+            System.out.println(" 7 :Tìm kiếm ");
+            System.out.println(" 8 :Lưu vào file ");
+            System.out.println(" 0 : Trở về " + ANSI_RESET);
+            choice1 = scanner.nextInt();
+            switch (choice1) {
+                case 1:
+                    System.out.printf(ANSI_YELLOW + "%-22s %-8s %-20s %-20s %-20s", "Tên", "Tuổi", "Trái ác quỷ", "Băng nhóm", "Tiền truy nã ");
+                    System.out.println("");
+                    managerCharacter.print();
+                    break;
+                case 2:
+                    createNewCharacter(managerCharacter, scanner);
+                    break;
+                case 3:
+                    System.err.println("Nhập tên nhân vật muốn xóa");
+                    scanner.nextLine();
+                    String deleteName = scanner.nextLine();
+                    if (managerCharacter.find(deleteName) != -1) {
+                        managerCharacter.delete(deleteName);
+                        System.err.println("Xóa thành công");
+                    } else System.err.println("Không tìm thấy nhân vật bạn muốn xóa");
+                    break;
+                case 4:
+                    editCharacter(managerCharacter, scanner);
+                    break;
+                case 5:
+                    System.out.printf(ANSI_YELLOW + "%-22s %-8s %-20s %-20s %-20s", "Tên", "Tuổi", "Trái ác quỷ", "Băng nhóm", "Tiền truy nã ");
+                    System.out.println("");
+                    managerCharacter.sortByMoney();
+                    break;
+                case 6:
+                    System.out.printf(ANSI_YELLOW + "%-22s %-8s %-20s %-20s %-20s", "Tên", "Tuổi", "Trái ác quỷ", "Băng nhóm", "Tiền truy nã ");
+                    System.out.println("");
+                    managerCharacter.sortByAge();
+                    break;
+                case 7:
+                    find(managerCharacter, scanner);
+                    break;
+                case 8:
+                    saveDataToFile(managerCharacter);
+                    break;
+                case 0:
+                    System.out.println("....................");
+                    break;
+            }
+            if (choice1 < 0 || choice1 > 9) {
+                System.out.println("Chưa phát triển chức năng này");
+            }
+        }
+    }
+
+    private static void editCharacter(ManagerCharacter managerCharacter, Scanner scanner) {
+        System.err.println("Nhập tên nhân vật bạn muốn sửa ");
+        scanner.nextLine();
+        String editName = scanner.nextLine();
+        if (managerCharacter.find(editName) != -1) {
+            System.err.println("Tạo mới tên nhân vật");
+            String newName = scanner.nextLine();
+            System.err.println("Tạo mới tuổi nhân vật");
+            int newAge = scanner.nextInt();
+            System.err.println("Tạo mới trái ác quỷ nhân vật");
+            String newDevilFruit = scanner.nextLine();
+            System.err.println("Tạo mới băng nhóm  nhân vật");
+            String newGangs = scanner.nextLine();
+            System.err.println("Tạo mới số tiền truy nã nhân vật");
+            int newMoneyRetrieval = scanner.nextInt();
+            managerCharacter.edit(editName, new Character(newName, newAge, newDevilFruit, newGangs, newMoneyRetrieval));
+            System.err.println("Sửa đổi thành công");
+            return;
+        }
+        System.err.println("Ko tìm thấy nhân vật bạn muốn sửa");
+    }
+
+    private static void find(ManagerCharacter managerCharacter, Scanner scanner) {
+        int choice2 = 88;
+        while (choice2 != 0) {
+            System.out.println(ANSI_BLUE + "------------------Menu-------------------" + ANSI_RESET);
+            System.out.println(ANSI_PURPLE + " 1 :Tìm kiếm theo tên nhân vật ");
+            System.out.println(" 2 :Tìm kiếm theo tên băng nhóm ");
+            System.out.println(" 3 :Tìm kiếm theo tên số tiền truy nã ");
+            System.out.println(" 0 : trở về " + ANSI_RESET);
+            choice2 = scanner.nextInt();
+            switch (choice2) {
+                case 1:
+                    findByName(managerCharacter, scanner);
+                    break;
+                case 2:
+                    findByGangs(managerCharacter, scanner);
+                    break;
+                case 3:
+                    findByMoney(managerCharacter, scanner);
+                    break;
+                case 0:
+                    System.out.println("....................");
+                    break;
+            }
+            if (choice2 < 0 || choice2 > 4) {
+                System.out.println("Chưa phát triển chức năng này");
+            }
+        }
+    }
+
+    private static void saveDataToFile(ManagerCharacter managerCharacter) {
+        try (FileWriter fileWriter = new FileWriter("onepiece.csv")) {
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            String str = "Tên,Tuổi,Trái ác quỷ,Băng nhóm,Tiền truy nã";
+            for (int i = 0; i < managerCharacter.getListCharacter().size(); i++) {
+                str += "\n" + managerCharacter.getListCharacter().get(i).getName()
+                        + "," + managerCharacter.getListCharacter().get(i).getAge() +
+                        "," + managerCharacter.getListCharacter().get(i).getDevilFruit() +
+                        "," + managerCharacter.getListCharacter().get(i).getGangs() +
+                        "," + managerCharacter.getListCharacter().get(i).getMoneyRetrieval();
+            }
+            bufferedWriter.write(str);
+            bufferedWriter.close();
+        } catch (IOException ignored) {
+        }
+    }
+
+    private static void mamagerAccount(Scanner scanner) {
+        int choice3 = 88;
+        while (choice3 != 0) {
+            System.out.println(ANSI_BLUE + "---------------------Menu----------------------" + ANSI_RESET);
+            System.out.println(ANSI_PURPLE + " 1 :Hiển thị danh sách tài khoản ");
+            System.out.println(" 2 :Thêm tài khoản  ");
+            System.out.println(" 3 :Xóa tài khoản ");
+            System.out.println(" 4 :Sửa tài khoản ");
+            System.out.println(" 5 :Sắp xếp tài khoản theo ngày đăng kí ");
+            System.out.println(" 6 :Tìm kiếm tài khoản ");
+            System.out.println(" 7 :Lưu danh sách tài khoản vào file ");
+            System.out.println(" 0 : Trở về " + ANSI_RESET);
+            choice3 = scanner.nextInt();
+            switch (choice3) {
+                case 1:
+                    System.out.printf(ANSI_YELLOW + "%-22s %-22s %-20s ", "Tên tài khoản", "Mật khẩu", "Ngày đăng kí");
+                    System.out.println("");
+                    ManagerAccountUser.getManagerAcc().print();
+                    break;
+                case 2:
+                    MenuLogin.createNewAccount(ManagerAccountUser.getManagerAcc(), scanner);
+
+                    break;
+                case 3:
+                    System.err.println("Nhập tên tài khoản muốn xóa");
+                    scanner.nextLine();
+                    String deleteName = scanner.nextLine();
+                    ManagerAccountUser.getManagerAcc().delete(deleteName);
+                    break;
+                case 4:
+                    editAccount(ManagerAccountUser.getManagerAcc(), scanner);
+                    break;
+                case 5:
+                    System.out.printf(ANSI_YELLOW + "%-22s %-22s %-20s ", "Tên tài khoản", "Mật khẩu", "Ngày đăng kí");
+                    System.out.println("");
+                    ManagerAccountUser.getManagerAcc().sortDate();
+                    break;
+                case 6:
+                    System.err.println("Nhập tên tài khoản muốn tìm");
+                    scanner.nextLine();
+                    String findName = scanner.nextLine();
+                    ManagerAccountUser.getManagerAcc().findByName(findName);
+                    break;
+                case 7:
+                    MenuLogin.savaToFile();
+                    break;
+                case 0:
+                    System.out.println(".....................");
+                    break;
+            }
+            if (choice3 < 0 || choice3 > 7) {
+                System.out.println("Chưa phát triển chức năng này");
+            }
+        }
+    }
+
+    private static void changeThePassword(Scanner scanner) {
+        System.err.println("Nhập lại mật khẩu :");
+        scanner.nextLine();
+        String pass = scanner.nextLine();
+        if (AccountAdmin.getInstance().getPassword().equals(pass)) {
+            System.err.println("Nhập mật khẩu mới");
+            String newPass = scanner.nextLine();
+            System.err.println("Nhập lại mật khẩu ");
+            String newPass1 = scanner.nextLine();
+            if (MenuLogin.validate(newPass)) {
+                if (newPass.equals(newPass1)) {
+                    AccountAdmin.getInstance().setPassword(newPass);
+                    System.err.println("Đã đổi mật khẩu thành công");
+                    return;
+                } else System.err.println("Mật khẩu không trùng khớp");
+                return;
+            } else
+                System.err.println("Mật khẩu không hợp lệ (Chứa ít nhất 6 kí tự và ko có kí tự đặc biệt )");
+            return;
+        } else System.err.println("Mật khẩu không chính xác ");
+    }
+
+    private static void readrCharacter() throws IOException {
+        FileReader fileReader = new FileReader("onepiece.csv");
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String str1;
+        System.out.println("\n------------------------------------------------------------------------------------------------------------------------");
+        while ((str1 = bufferedReader.readLine()) != null) {
+            String[] str2 = str1.split(",");
+            for (int i = 0; i < str2.length; i++) {
+                System.out.printf(ANSI_YELLOW + "  %-25s|", str2[i] + ANSI_RESET);
+            }
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------");
+        }
+        bufferedReader.close();
+    }
+
+    private static void readerAccount() {
+        try (FileReader fileReader2 = new FileReader("accountuser.csv")) {
+            BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
+            String str3;
+            System.out.println("\n------------------------------------------------------------------------------");
+            while ((str3 = bufferedReader2.readLine()) != null) {
+                String[] str2 = str3.split(",");
+                for (int i = 0; i < str2.length; i++) {
+                    System.out.printf(ANSI_YELLOW + "  %-27s|", str2[i] + ANSI_RESET);
+                }
+                System.out.println("\n------------------------------------------------------------------------------");
+            }
+            bufferedReader2.close();
+        } catch (IOException i) {
+            System.out.println("");
         }
     }
 
@@ -308,7 +329,7 @@ public class MenuAdmin {
         }
     }
 
-    static void createNewCharacter(ManagerCharacter managerCharacter, Scanner scanner) {
+    private static void createNewCharacter(ManagerCharacter managerCharacter, Scanner scanner) {
         System.err.println("Tạo tên nhân vật ");
         scanner.nextLine();
         String newName = scanner.nextLine();
@@ -325,21 +346,21 @@ public class MenuAdmin {
 
     }
 
-    static void findByName(ManagerCharacter managerCharacter, Scanner scanner) {
+    private static void findByName(ManagerCharacter managerCharacter, Scanner scanner) {
         System.err.println("Nhập tên nhân vật bạn muốn tìm ");
         scanner.nextLine();
         String findName = scanner.nextLine();
         managerCharacter.findByName(findName);
     }
 
-    static void findByGangs(ManagerCharacter managerCharacter, Scanner scanner) {
+    private static void findByGangs(ManagerCharacter managerCharacter, Scanner scanner) {
         System.out.println("Nhập băng nhóm bạn muốn tìm ");
         scanner.nextLine();
         String findGangs = scanner.nextLine();
         managerCharacter.findByGangs(findGangs);
     }
 
-    static void findByMoney(ManagerCharacter managerCharacter, Scanner scanner) {
+    private static void findByMoney(ManagerCharacter managerCharacter, Scanner scanner) {
         System.out.println("Nhập tên nhân vật bạn muốn tìm ");
         scanner.nextLine();
         int findMoney = scanner.nextInt();

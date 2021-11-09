@@ -53,7 +53,8 @@ public class ManagerCharacter implements CharacterManager<Character> {
     @Override
     public void findByGangs(String gangs) {
         for (Character character : listCharacter) {
-            if (character.getGangs().trim().toLowerCase(Locale.ROOT).equals(gangs.trim().toLowerCase(Locale.ROOT)))
+            boolean isGangs = character.getGangs().trim().toLowerCase(Locale.ROOT).equals(gangs.trim().toLowerCase(Locale.ROOT));
+            if (isGangs)
                 System.out.println(character);
         }
     }
@@ -69,7 +70,8 @@ public class ManagerCharacter implements CharacterManager<Character> {
     public void findByName(String name) {
         int index = -11;
         for (Character character : listCharacter) {
-            if (character.getName().trim().toLowerCase(Locale.ROOT).contains(name.trim().toLowerCase(Locale.ROOT))) {
+            boolean isName = character.getName().trim().toLowerCase(Locale.ROOT).contains(name.trim().toLowerCase(Locale.ROOT));
+            if (isName) {
                 System.out.println(character);
                 index = 10;
             }
