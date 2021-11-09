@@ -5,6 +5,7 @@ import model.service.myInterface.UserAccountManager;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Locale;
 
 public class ManagerAccountUser implements UserAccountManager<AccountUser> {
     private static final ManagerAccountUser instance = new ManagerAccountUser();//Singleton
@@ -69,7 +70,7 @@ public class ManagerAccountUser implements UserAccountManager<AccountUser> {
 
     public void findByName(String userName) {
         for (AccountUser accountUser : listUserAccount) {
-            if (accountUser.getUserName().contains(userName)) {
+            if (accountUser.getUserName().trim().toLowerCase(Locale.ROOT).contains(userName.toLowerCase(Locale.ROOT).trim())) {
                 System.out.println(accountUser);
             }
         }

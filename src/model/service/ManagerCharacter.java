@@ -5,6 +5,7 @@ import model.service.myInterface.CharacterManager;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Locale;
 
 public class ManagerCharacter implements CharacterManager<Character> {
     ArrayList<Character> listCharacter;
@@ -49,15 +50,13 @@ public class ManagerCharacter implements CharacterManager<Character> {
         listCharacter.sort(Comparator.comparingInt(Character::getAge));
         print();
     }
-
     @Override
     public void findByGangs(String gangs) {
         for (Character character : listCharacter) {
-            if (character.getGangs().equals(gangs))
+            if (character.getGangs().trim().toLowerCase(Locale.ROOT).equals(gangs.trim().toLowerCase(Locale.ROOT)))
                 System.out.println(character);
         }
     }
-
     @Override
     public void findByMoney(int money) {
         for (Character character : listCharacter) {
@@ -70,7 +69,7 @@ public class ManagerCharacter implements CharacterManager<Character> {
     public void findByName(String name) {
         int index = -11;
         for (Character character : listCharacter) {
-            if (character.getName().contains(name)) {
+            if (character.getName().trim().toLowerCase(Locale.ROOT).contains(name.trim().toLowerCase(Locale.ROOT))) {
                 System.out.println(character);
                 index = 10;
             }
