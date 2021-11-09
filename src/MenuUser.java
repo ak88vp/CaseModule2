@@ -1,6 +1,6 @@
 
-import model.sirvice.ManagerAccountUser;
-import model.sirvice.ManagerCharacter;
+import model.service.ManagerAccountUser;
+import model.service.ManagerCharacter;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package model.sirvice.interfaced;
+package model.service.myInterface;
 
 public interface Manager <T>{
     void add(T t);

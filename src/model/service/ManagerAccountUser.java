@@ -1,7 +1,7 @@
-package model.sirvice;
+package model.service;
 
 import model.AccountUser;
-import model.sirvice.interfaced.UserAccountManager;
+import model.service.myInterface.UserAccountManager;
 
 import java.util.ArrayList;
 import java.util.Comparator;

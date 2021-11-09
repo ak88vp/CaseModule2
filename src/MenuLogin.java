@@ -1,7 +1,10 @@
 import model.AccountAdmin;
 import model.AccountUser;
-import model.sirvice.ManagerAccountUser;
+import model.service.ManagerAccountUser;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,6 +98,7 @@ public class MenuLogin {
                     if (!ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getUserName().equals(newName)) {
                         ManagerAccountUser.getManagerAcc().add(new AccountUser(newName, newPassword));
                         System.err.println("Đăng kí thành công");
+                        savaToFile();
                         check = i;
                         break;
                     }
@@ -107,5 +111,22 @@ public class MenuLogin {
             return;
         } else System.err.println("Tên hoặc mật khẩu không hợp lệ (Chứa ít nhất 6 kí tự và ko có kí tự đặc biệt )");
         return;
+    }
+
+    public static void savaToFile() {
+        try  {
+            FileWriter fileWriter = new FileWriter("accountuser.csv");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            String str = "Tên tài khoản, Mật khẩu,Ngày đăng kí";
+            for (int j = 0; j < ManagerAccountUser.getManagerAcc().getListUserAccount().size(); j++) {
+                str += "\n" + ManagerAccountUser.getManagerAcc().getListUserAccount().get(j).getUserName() + ","
+                        + ManagerAccountUser.getManagerAcc().getListUserAccount().get(j).getPassword() + "," +
+                        ManagerAccountUser.getManagerAcc().getListUserAccount().get(j).getDateTime()
+                ;
+            }
+            bufferedWriter.write(str);
+            bufferedWriter.close();
+        } catch (IOException ignored) {
+        }
     }
 }

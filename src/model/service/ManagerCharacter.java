@@ -1,7 +1,7 @@
-package model.sirvice;
+package model.service;
 
 import model.Character;
-import model.sirvice.interfaced.CharacterManager;
+import model.service.myInterface.CharacterManager;
 
 import java.util.ArrayList;
 import java.util.Comparator;

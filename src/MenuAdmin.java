@@ -2,8 +2,8 @@
 import model.AccountAdmin;
 import model.AccountUser;
 import model.Character;
-import model.sirvice.ManagerAccountUser;
-import model.sirvice.ManagerCharacter;
+import model.service.ManagerAccountUser;
+import model.service.ManagerCharacter;
 
 import java.io.*;
 import java.util.Scanner;
@@ -123,10 +123,10 @@ public class MenuAdmin {
                                         }
                                     }
                                 case 8:
-                                    System.err.println("Nhập đường dẫn ");
-                                    scanner.nextLine();
-                                    String link = scanner.nextLine();
-                                    try (FileWriter fileWriter = new FileWriter(link)) {
+//                                    System.err.println("Nhập đường dẫn ");
+//                                    scanner.nextLine();
+//                                    String link = scanner.nextLine();
+                                    try (FileWriter fileWriter = new FileWriter("onepiece.csv")) {
                                         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                                         String str = "Tên,Tuổi,Trái ác quỷ,Băng nhóm,Tiền truy nã";
                                         for (int i = 0; i < managerCharacter.getListCharacter().size(); i++) {
@@ -194,22 +194,10 @@ public class MenuAdmin {
                                     ManagerAccountUser.getManagerAcc().findByName(findName);
                                     break;
                                 case 7:
-                                    System.err.println("Nhập đường dẫn ");
-                                    scanner.nextLine();
-                                    String link = scanner.nextLine();
-                                    try (FileWriter fileWriter = new FileWriter(link)) {
-                                        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                                        String str = "Tên tài khoản, Mật khẩu,Ngày đăng kí";
-                                        for (int i = 0; i < ManagerAccountUser.getManagerAcc().getListUserAccount().size(); i++) {
-                                            str += "\n" + ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getUserName() + ","
-                                                    + ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getPassword() + "," +
-                                                    ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getDateTime()
-                                            ;
-                                        }
-                                        bufferedWriter.write(str);
-                                        bufferedWriter.close();
-                                    } catch (IOException ignored) {
-                                    }
+//                                    System.err.println("Nhập đường dẫn ");
+//                                    scanner.nextLine();
+//                                    String link = scanner.nextLine();
+                                   MenuLogin.savaToFile();
                                     break;
                                 case 0:
                                     System.out.println(".....................");
@@ -242,10 +230,10 @@ public class MenuAdmin {
                         } else System.err.println("Mật khẩu không chính xác ");
                         break;
                     case 4:
-                        System.err.println("Nhập đường dẫn mà bạn muốn đọc");
-                        scanner.nextLine();
-                        String link1 = scanner.nextLine();
-                        FileReader fileReader = new FileReader(link1);
+//                        System.err.println("Nhập đường dẫn mà bạn muốn đọc");
+//                        scanner.nextLine();
+//                        String link1 = scanner.nextLine();
+                        FileReader fileReader = new FileReader("onepiece.csv");
                         BufferedReader bufferedReader = new BufferedReader(fileReader);
                         String str1;
                         System.out.println("\n------------------------------------------------------------------------------------------------------------------------");
@@ -259,10 +247,10 @@ public class MenuAdmin {
                         bufferedReader.close();
                         break;
                     case 5:
-                        System.err.println("Nhập đường dẫn mà bạn muốn đọc");
-                        scanner.nextLine();
-                        String link2 = scanner.nextLine();
-                        try (FileReader fileReader2 = new FileReader(link2)) {
+//                        System.err.println("Nhập đường dẫn mà bạn muốn đọc");
+//                        scanner.nextLine();
+//                        String link2 = scanner.nextLine();
+                        try (FileReader fileReader2 = new FileReader("accountuser.csv")) {
                             BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
                             String str3;
                             System.out.println("\n------------------------------------------------------------------------------");
