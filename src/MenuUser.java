@@ -1,7 +1,9 @@
 
+import model.AccountUser;
 import model.service.ManagerAccountUser;
 import model.service.ManagerCharacter;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuUser {
@@ -50,7 +52,7 @@ public class MenuUser {
                     case 6:
                         System.out.printf(ANSI_YELLOW + "%-22s %-22s %-20s ", "Tên tài khoản", "Mật khẩu", "Ngày đăng kí");
                         System.out.println();
-                        System.out.println(ManagerAccountUser.getInstance().getListUserAccount().get(ManagerAccountUser.getInstance().find(MenuLogin.newName)).toString());
+                        System.out.println(getListUserAccount().get(getIndex()).toString());
                         break;
 
                 }
@@ -68,9 +70,8 @@ public class MenuUser {
         System.err.println("Nhập lại mật khẩu ");
         scanner.nextLine();
         String pass0 = scanner.nextLine();
-        boolean isCorrectPassword = ManagerAccountUser.getInstance().getListUserAccount().get(ManagerAccountUser.getInstance().find(MenuLogin.newName
-        )).getPassword().equals(pass0);
-        if (isCorrectPassword) {
+        boolean passTrue = getListUserAccount().get(getIndex()).getPassword().equals(pass0);
+        if (passTrue) {
             System.err.println("Nhập mật khẩu mới");
             String pass1 = scanner.nextLine();
             System.err.println("Nhập mật lại khẩu ");
@@ -85,6 +86,14 @@ public class MenuUser {
             } else
                 System.err.println("Tên hoặc mật khẩu không hợp lệ (Chứa ít nhất 6 kí tự và ko có kí tự đặc biệt )");
         } else System.err.println("Mật khẩu không đúng");
+    }
+
+    private static int getIndex() {
+        return ManagerAccountUser.getInstance().find(MenuLogin.newName);
+    }
+
+    private static ArrayList<AccountUser> getListUserAccount() {
+        return ManagerAccountUser.getInstance().getListUserAccount();
     }
 
     private static void find(Scanner scanner) {

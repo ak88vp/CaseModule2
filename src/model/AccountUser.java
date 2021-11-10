@@ -37,9 +37,6 @@ public class AccountUser {
         return dateTime;
     }
 
-    public int getDateTime2() {
-        return dateTime.getMinute();
-    }
 
 
     @Override
