@@ -8,10 +8,9 @@ import java.util.Comparator;
 import java.util.Locale;
 
 public class ManagerCharacter implements CharacterManager<Character> {
-    ArrayList<Character> listCharacter;
-
-    public ManagerCharacter() {
-        listCharacter = new ArrayList<>();
+    ArrayList<Character> listCharacter = new ArrayList<>();
+    private static final ManagerCharacter instance = new ManagerCharacter();
+    private ManagerCharacter() {
         listCharacter.add(new Character("Công Chúa Shirahoshi", 16, "Không", "Không", 0));
         listCharacter.add(new Character("Chopper", 17, "Hito Hito no mi", "Mũ rơm", 100));
         listCharacter.add(new Character("Công Chúa Vivi", 18, "Không", "Không", 0));
@@ -26,6 +25,11 @@ public class ManagerCharacter implements CharacterManager<Character> {
         listCharacter.add(new Character("Doflamingo", 41, "Hira Hira no Mi", "Donquixote", 340000000));
         listCharacter.add(new Character("Công chúa Rebeca", 16, "Không", "Không", 0));
     }
+
+    public static ManagerCharacter getInstance() {
+        return instance;
+    }
+
 
     public ManagerCharacter(ArrayList<Character> listCharacter) {
         this.listCharacter = listCharacter;
@@ -50,6 +54,7 @@ public class ManagerCharacter implements CharacterManager<Character> {
         listCharacter.sort(Comparator.comparingInt(Character::getAge));
         print();
     }
+
     @Override
     public void findByGangs(String gangs) {
         for (Character character : listCharacter) {
@@ -58,6 +63,7 @@ public class ManagerCharacter implements CharacterManager<Character> {
                 System.out.println(character);
         }
     }
+
     @Override
     public void findByMoney(int money) {
         for (Character character : listCharacter) {

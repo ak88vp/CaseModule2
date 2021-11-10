@@ -20,8 +20,9 @@ public class MenuLogin {
         return matcher.matches();
     }
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
+        MenuAdmin.readFileAcc();
+        MenuAdmin.readrCRT();
         Scanner scanner = new Scanner(System.in);
         int choice = 88;
         while (choice != 0) {
@@ -33,10 +34,10 @@ public class MenuLogin {
                 choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
-                        createNewAccount(ManagerAccountUser.getManagerAcc(), scanner);
+                        createNewAccount(scanner);
                         break;
                     case 2:
-                        logIn(ManagerAccountUser.getManagerAcc(), AccountAdmin.getInstance(), scanner);
+                        logIn(scanner);
                         break;
                     case 0:
                         System.err.println("Cám ơn bạn đã sử chương trình \nChúc bạn có một ngày tốt đẹp ");
@@ -55,7 +56,7 @@ public class MenuLogin {
 
     public static String newName;
 
-    public static void logIn(ManagerAccountUser managerAccountUser, AccountAdmin admin, Scanner scanner) {
+    public static void logIn(Scanner scanner) {
         System.err.println("Nhập tên tài khoản ");
         scanner.nextLine();
         String name = scanner.nextLine();
@@ -66,9 +67,9 @@ public class MenuLogin {
             System.err.println("Đã đăng nhập thành công tài khoản Admin");
             MenuAdmin.main();
         } else {
-            for (int i = 0; i < ManagerAccountUser.getManagerAcc().getListUserAccount().size(); i++) {
-                boolean isName = ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getUserName().equals(name);
-                boolean isPass = ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getPassword().equals(pass);
+            for (int i = 0; i < ManagerAccountUser.getInstance().getListUserAccount().size(); i++) {
+                boolean isName = ManagerAccountUser.getInstance().getListUserAccount().get(i).getUserName().equals(name);
+                boolean isPass = ManagerAccountUser.getInstance().getListUserAccount().get(i).getPassword().equals(pass);
                 if (isName && isPass) {
                     System.err.println("Đăng nhập thành công");
                     newName = name;
@@ -83,7 +84,7 @@ public class MenuLogin {
         }
     }
 
-    static void createNewAccount(ManagerAccountUser managerAccountUser, Scanner scanner) {
+    static void createNewAccount(Scanner scanner) {
         System.err.println("Tạo tên tài khoản");
         scanner.nextLine();
         String newName = scanner.nextLine();
@@ -94,37 +95,33 @@ public class MenuLogin {
         if (validate(newName) && validate(newPassword)) {
             if (newPassword.equals(newPassword2)) {
                 int check = -1;
-                for (int i = 0; i < ManagerAccountUser.getManagerAcc().getListUserAccount().size(); i++) {
-                    if (!ManagerAccountUser.getManagerAcc().getListUserAccount().get(i).getUserName().equals(newName)) {
-                        ManagerAccountUser.getManagerAcc().add(new AccountUser(newName, newPassword));
+                for (int i = 0; i < ManagerAccountUser.getInstance().getListUserAccount().size(); i++) {
+                    if (!ManagerAccountUser.getInstance().getListUserAccount().get(i).getUserName().equals(newName)) {
+                        ManagerAccountUser.getInstance().add(new AccountUser(newName, newPassword));
                         System.err.println("Đăng kí thành công");
-                        savaToFile();
+                        savaAccToFile();
+                        MenuAdmin.readFileAcc();
                         check = i;
                         break;
                     }
                 }
                 if (check == -1) {
                     System.err.println("Tên Tài Khoản đã được tồn tại");
-                    return;
                 }
             } else System.err.println("Mật khẩu không trùng khớp");
-            return;
         } else System.err.println("Tên hoặc mật khẩu không hợp lệ (Chứa ít nhất 6 kí tự và ko có kí tự đặc biệt )");
-        return;
     }
 
-    public static void savaToFile() {
+    public static void savaAccToFile() {
         try {
-            FileWriter fileWriter = new FileWriter("accountuser.csv");
+            FileWriter fileWriter = new FileWriter("accountUser.csv");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            String str = "Tên tài khoản, Mật khẩu,Ngày đăng kí";
-            for (int j = 0; j < ManagerAccountUser.getManagerAcc().getListUserAccount().size(); j++) {
-                str += "\n" + ManagerAccountUser.getManagerAcc().getListUserAccount().get(j).getUserName() + ","
-                        + ManagerAccountUser.getManagerAcc().getListUserAccount().get(j).getPassword() + "," +
-                        ManagerAccountUser.getManagerAcc().getListUserAccount().get(j).getDateTime()
+            StringBuilder str = new StringBuilder("Tên tài khoản, Mật khẩu,Ngày đăng kí");
+            for (int j = 0; j < ManagerAccountUser.getInstance().getListUserAccount().size(); j++) {
+                str.append("\n").append(ManagerAccountUser.getInstance().getListUserAccount().get(j).getUserName()).append(",").append(ManagerAccountUser.getInstance().getListUserAccount().get(j).getPassword()).append(",").append(ManagerAccountUser.getInstance().getListUserAccount().get(j).getDateTime())
                 ;
             }
-            bufferedWriter.write(str);
+            bufferedWriter.write(str.toString());
             bufferedWriter.close();
         } catch (IOException ignored) {
         }

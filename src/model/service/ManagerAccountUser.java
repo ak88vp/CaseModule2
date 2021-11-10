@@ -10,19 +10,14 @@ import java.util.Locale;
 public class ManagerAccountUser implements UserAccountManager<AccountUser> {
     private static final ManagerAccountUser instance = new ManagerAccountUser();//Singleton
 
-    public static ManagerAccountUser getManagerAcc() {      // Dùng khi mà muốn cái class của mk tạo ra 1 thằng duy nhất thôi
+    public static ManagerAccountUser getInstance() {      // Dùng khi mà muốn cái class của mk tạo ra 1 thằng duy nhất thôi
         return instance;
     }
 
-    private ArrayList<AccountUser> listUserAccount;
+    private ArrayList<AccountUser> listUserAccount= new ArrayList<>();
 
 
-    public ManagerAccountUser() {
-        listUserAccount = new ArrayList<>();
-        listUserAccount.add(new AccountUser("dung24", "123123"));
-        listUserAccount.add(new AccountUser("ak6688", "123123"));
-        listUserAccount.add(new AccountUser("c0821i1", "123123"));
-
+    private ManagerAccountUser() {
     }
 
     public ManagerAccountUser(ArrayList<AccountUser> listUserAccount) {
