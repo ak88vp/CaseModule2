@@ -16,6 +16,7 @@ public class MenuAdmin {
     public static final String ANSI_PURPLE = "\u001B[35m";
 
     public static void main() {
+        readFileAdmin();
         Scanner scanner = new Scanner(System.in);
         int choice = 88;
         while (choice != 0) {
@@ -214,9 +215,10 @@ public class MenuAdmin {
             choice3 = scanner.nextInt();
             switch (choice3) {
                 case 1:
-                    System.out.printf(ANSI_YELLOW + "%-22s %-22s %-20s ", "Tên tài khoản", "Mật khẩu", "Ngày đăng kí");
-                    System.out.println();
-                    getManagerAccountUser().print();
+//                    System.out.printf(ANSI_YELLOW + "%-22s %-22s %-20s ", "Tên tài khoản", "Mật khẩu", "Ngày đăng kí");
+//                    System.out.println();
+//                    getManagerAccountUser().print();
+                    readerAccount();
                     break;
                 case 2:
                     MenuLogin.createNewAccount(scanner);
@@ -260,7 +262,6 @@ public class MenuAdmin {
     private static ManagerAccountUser getManagerAccountUser() {
         return ManagerAccountUser.getInstance();
     }
-
     private static void changeThePassword(Scanner scanner) {
         System.err.println("Nhập lại mật khẩu :");
         scanner.nextLine();
@@ -275,6 +276,17 @@ public class MenuAdmin {
                 if (newPass.equals(newPass1)) {
                     AccountAdmin.getInstance().setPassword(newPass);
                     System.err.println("Đã đổi mật khẩu thành công");
+                    try {
+                        FileWriter fileWriter = new FileWriter("accountAdmin.csv");
+                        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                        bufferedWriter.write("Tên tài khoản,Mật khẩu");
+                        bufferedWriter.write("\nadmin"+","+newPass);
+                        bufferedWriter.close();
+                        readFileAdmin();
+                    } catch (IOException ignored) {
+
+                    }
+
 
                 } else System.err.println("Mật khẩu không trùng khớp");
 
@@ -354,6 +366,20 @@ public class MenuAdmin {
             System.out.println("");
         }
     }
+    public static void readFileAdmin(){
+        try{
+            FileReader fileReader = new FileReader("accountAdmin.csv");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String str=bufferedReader.readLine();
+            while ((str=bufferedReader.readLine())!=null){
+                String[] str2 = str.split(",");
+                String passNew=str2[1];
+                AccountAdmin.getInstance().setPassword(passNew);}
+        }catch (Exception e){
+            System.out.println();
+        }
+    }
+
 
     private static void editAccount(Scanner scanner) {
         System.err.println("Nhập tên tài khoản muốn sửa");

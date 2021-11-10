@@ -22,6 +22,7 @@ public class MenuLogin {
     }
 
     public static void main(String[] args) throws IOException {
+        MenuAdmin.readFileAdmin();
         MenuAdmin.readFileAcc();
         savaAccToFile();
         MenuAdmin.readrCRT();
